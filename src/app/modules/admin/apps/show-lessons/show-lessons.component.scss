@@ -1,0 +1,176 @@
+ul{
+    width: 100%;
+
+    margin: 20px;
+    
+}
+
+#exercisesButton {
+  display: none;
+}
+
+
+/* Show the exercises button only if it's the first list item */
+.list-item:first-child #exercisesButton {
+  display: block;
+}
+
+
+span{
+    font-weight: bold;
+
+    font-size: 20px;
+    color: #333;
+}
+
+.list-item {
+    position: relative;
+    transition: transform 0.3s;
+  }
+
+  .list-item:hover {
+    animation: moveListItem 0.3s forwards;
+  }
+
+  @keyframes moveListItem {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(10px);
+    }
+  }
+
+
+  @keyframes fade-in {
+    0% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  .fade-in-animation {
+    animation: fade-in 4s infinite;
+  }
+  
+  footer {
+    margin-top: auto; 
+  }
+  footer {
+    margin-top: auto; 
+  }
+  
+  ul{
+    width: 100%;
+
+    margin: 20px;
+    
+}
+
+#exercisesButton {
+  display: none;
+}
+
+
+@media only screen and (max-width: 767px) {
+  /* Adjust the styles for smaller screens */
+  footer {
+    margin-top: 60px;
+    text-align: center;
+  }
+
+  .lg:flex {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .lg:items-start {
+    align-items: center;
+  }
+
+  .lg:grid-cols-5 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+
+footer ul{
+  transform: translateX(27%) !important;
+}
+ 
+.exerciceBtn{
+  transform: translateX(-50%);
+}
+
+
+  footer input{
+    display: none;
+  }
+
+ 
+
+  footer button{
+    transform: translateX(-5%);
+
+  }
+  
+  footer svg{
+    margin: auto;
+  }
+
+  footer .copyrigth{
+    margin: auto;
+  }
+
+
+  /* Add more styles as needed for responsiveness */
+}
+
+/* Show the exercises button only if it's the first list item */
+.list-item:first-child #exercisesButton {
+  display: block;
+}
+
+
+span{
+    font-weight: bold;
+
+    font-size: 20px;
+    color: #333;
+}
+
+.list-item {
+    position: relative;
+    transition: transform 0.3s;
+  }
+
+  .list-item:hover {
+    animation: moveListItem 0.3s forwards;
+  }
+
+  @keyframes moveListItem {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(10px);
+    }
+  }
+
+
+  @keyframes fade-in {
+    0% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  .fade-in-animation {
+    animation: fade-in 4s infinite;
+  }
+  
+  footer {
+    margin-top: auto; 
+  }

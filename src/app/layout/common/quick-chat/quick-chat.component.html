@@ -1,0 +1,201 @@
+<div class="fixed lg:sticky top-0 bottom-0 lg:left-full w-full sm:w-96 lg:w-16 lg:h-screen lg:shadow">
+    <div
+        class="flex flex-col w-full sm:w-96 h-full transition-transform duration-400 ease-drawer bg-card"
+        [ngClass]="{'-translate-x-full sm:-translate-x-96 lg:-translate-x-80 shadow': opened, 'translate-x-0': !opened}">
+
+        <!-- Header -->
+        <div
+            class="quick-chat-header flex flex-0 items-center justify-start cursor-pointer"
+            (click)="toggle()">
+
+            <!-- Toggle -->
+            <!-- Toggle -->
+            <ng-container *ngIf="openn===false">
+                <div class="flex flex-auto items-center justify-center">
+                    <div class="flex flex-0 items-center justify-center w-16">
+                        <mat-icon
+                            class="icon-size-6"
+                            [svgIcon]="'heroicons_outline:chat-alt-2'"></mat-icon>
+                    </div>
+                    <div class="text-lg font-medium text-secondary">Team Chat</div>
+                    <button
+                        class="ml-auto mr-4"
+                        mat-icon-button>
+                        <mat-icon [svgIcon]="'heroicons_outline:x'"></mat-icon>
+                    </button>
+                </div>
+            </ng-container>
+
+            <!-- Contact info -->
+            <ng-container *ngIf="openn===true">
+             
+                <div class="flex flex-auto items-center ml-3">
+                    <div class="relative flex flex-0 items-center justify-center w-10 h-10">
+                        <ng-container>
+                            <img
+                                class="w-full h-full rounded-full object-cover"
+                                [src]="_authservice.PhotoUrl +Reciverdata.image.substring(12)"  
+                                alt="Contact avatar"/>
+                        </ng-container>
+                      
+                    </div>
+                    <div class="ml-4 text-lg font-medium leading-5 truncate">{{Reciverdata.username}}</div>
+                    <button
+                        class="ml-auto mr-4"
+                        mat-icon-button>
+                        <mat-icon [svgIcon]="'heroicons_outline:x'"></mat-icon>
+                    </button>
+                </div>
+            </ng-container>
+        </div>
+
+        <!-- Content -->
+        <div class="flex flex-auto border-t overflow-hidden">
+
+            <!-- Chat list -->
+            <div
+                class="flex-0 w-16 h-full overflow-y-auto overscroll-y-contain sm:overflow-hidden sm:overscroll-auto"
+                fuseScrollbar
+                [fuseScrollbarOptions]="{wheelPropagation: false}">
+                <div class="flex-auto">
+                    <ng-container *ngFor="let t of Teachers">
+                        <div
+                            class="flex items-center py-3 px-4 cursor-pointer"
+                            [ngClass]="{'hover:bg-gray-100 dark:hover:bg-hover': !selectedChat || selectedChat.id !== chat.id,
+                                        'bg-primary-50 dark:bg-hover': selectedChat && selectedChat.id === chat.id}"
+                            (click)="storeTeacherId(t.id)">
+                            <div class="relative flex flex-0 items-center justify-center w-8 h-8">
+                                <ng-container>
+                                    <div
+                                        class="absolute bottom-0 right-0 flex-0 w-2 h-2 -ml-0.5 rounded-full ring-2 ring-bg-card dark:ring-gray-900 bg-primary dark:bg-primary-500 text-on-primary"
+                                        [class.ring-primary-50]="selectedChat && selectedChat.id === chat.id"></div>
+                                </ng-container>
+                                <ng-container>
+                                    <img
+                                        class="w-full h-full rounded-full object-cover"
+                                        [src]="_authservice.PhotoUrl + t.image.substring(12)"  
+                                        alt="Contact avatar"/>
+                                </ng-container>
+                               
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+                </div>
+
+            <!-- Conversation -->
+            <div class="flex flex-col flex-auto border-l overflow-hidden bg-gray-50 dark:bg-transparent">
+                <ng-container *ngIf="selectChatOrStartNew">
+                    <div class="flex flex-col-reverse overflow-y-auto overscroll-y-contain">
+                        <div class="flex flex-col flex-auto shrink p-6">
+                            <ng-container *ngFor="let msg of messages let i = index; let first = first; let last = last; trackBy: trackByFn">
+                              <div  *ngIf="channelN === channelName">
+                                
+                                <div style="display: flex !important; flex-direction: row !important;">
+                                  <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300">
+                                        <img [src]="_authservice.PhotoUrl + msg.image.substring(12)" alt="img" class="w-full h-full rounded-full object-cover">
+                                    </div>
+
+                                    <div
+                                    class="flex flex-col"
+                                    [ngClass]="{'items-end':msg.senderId === senderID,
+                                                'items-start': msg.senderId !== senderID,
+                                                'mt-0.5': i > 0 && msg.senderId[i - 1]=== senderID,
+                                                'mt-3':  i > 0 && msg.senderId[i - 1]!== senderID}">
+                                    <!-- Bubble -->
+                                    
+                                    <div style="margin-right: 15px !important;"
+                                        class="relative max-w-3/4 px-3 py-2 rounded-lg"
+                                        [ngStyle]="{'background-color': msg.senderId === senderID ? '#DAA420' : '#4299e1'}">
+                                        <ng-container *ngIf="last ||  msg.senderId !== senderID">
+                                            <div class="absolute bottom-0 w-3"
+                                            [ngClass]="{
+                                               '-right-1 -mr-px mb-px': msg.senderId !== senderID,
+                                               'text-custom-color2': msg.senderId !== senderID,
+                                               ' -left-1 -ml-px mb-px -scale-x-1': msg.senderId === senderID,
+                                               'text-custom-color': msg.senderId === senderID
+                                            }">
+                                                <ng-container *ngTemplateOutlet="speechBubbleExtension"></ng-container>
+                                        </div>
+                                        </ng-container>
+                                        <!-- Message -->
+                                        <strong class="mb-1">{{msg.username}}</strong>
+                                        <div
+                                            class="min-w-4 leading-5"
+                                            >
+                                            {{msg.message}}
+                                        </div>
+                                    </div>
+                                    <!-- Time -->
+                                    <ng-container
+                                    *ngIf="first
+                                   || last
+                                   || msg.senderId=== senderID
+                                   || msg.senderId!== senderID">
+                                    <div
+                                        class="my-0.5 text-sm font-medium text-secondary"
+                                        [ngClass]="{'mr-3':msg.senderId === senderID,
+                                                    'ml-3': msg.senderId !== senderID}">
+                                        {{msg.time}}
+                                    </div>
+                                </ng-container>
+                                </div>
+                               
+                                  
+                                </div>
+                            </div>
+                            </ng-container>
+                            
+                        </div>
+                    </div>
+
+                    <!-- Message field -->
+
+                   
+                    <form (submit)="submit()">
+                    <div class="flex items-end p-4 border-t bg-gray-50 dark:bg-transparent">
+                        <mat-form-field
+                            class="fuse-mat-dense fuse-mat-rounded fuse-mat-bold w-full"
+                            [subscriptSizing]="'dynamic'">
+                            <input
+                            [value]="message"
+                            (change)="message = $event.target.value"
+                                matInput
+                               
+                              >
+                        </mat-form-field>
+                        <button
+                        mat-icon-button>
+                        <mat-icon
+                            class="rotate-90"
+                            [svgIcon]="'heroicons_outline:paper-airplane'"></mat-icon>
+                    </button>  
+                    </div>
+
+                    </form>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Select chat or start new template -->
+<ng-template #selectChatOrStartNew>
+    <div class="flex flex-col flex-auto items-center justify-center w-full h-full p-4">
+        <mat-icon
+            class="icon-size-24"
+            [svgIcon]="'heroicons_outline:chat'"></mat-icon>
+        <div class="mt-4 text-xl text-center font-medium tracking-tight text-secondary">Select a conversation</div>
+    </div>
+</ng-template>
+
+<!-- Speech bubble tail SVG -->
+<!-- @formatter:off -->
+<ng-template #speechBubbleExtension>
+    <svg width="100%" height="100%" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <path d="M1.01522827,0.516204834 C-8.83532715,54.3062744 61.7609863,70.5215302 64.8009949,64.3061218 C68.8074951,54.8859711 30.1663208,52.9997559 37.5036011,0.516204834 L1.01522827,0.516204834 Z" fill="currentColor" fill-rule="nonzero"></path>
+        </g>
+    </svg>
+</ng-template>
+<!-- @formatter:on -->

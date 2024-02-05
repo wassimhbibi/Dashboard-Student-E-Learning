@@ -1,0 +1,79 @@
+.container{
+    
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    
+    
+ }
+.hide-element {
+  display: none;
+}
+
+
+footer {
+  margin-top: auto; 
+}
+ .features{
+    padding-top: 60px;
+    padding-bottom: 60px;
+    background-color: #f6f6f6;
+   
+  }
+  
+  footer {
+    margin-top: auto; 
+  }
+  
+  @media only screen and (max-width: 767px) {
+    /* Adjust the styles for smaller screens */
+    footer {
+      margin-top: 60px;
+      text-align: center;
+    }
+  
+    .lg:flex {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .lg:items-start {
+      align-items: center;
+    }
+  
+    .lg:grid-cols-5 {
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+  
+  footer ul{
+    transform: translateX(5%) !important;
+  }
+   
+  .exerciceBtn{
+    transform: translateX(-50%);
+  }
+  
+  
+    footer input{
+      display: none;
+    }
+  
+   
+  
+    footer button{
+      transform: translateX(-5%);
+  
+    }
+    
+    footer svg{
+      margin: auto;
+    }
+  
+    footer .copyrigth{
+      margin: auto;
+    }
+  
+  
+    /* Add more styles as needed for responsiveness */
+  }

@@ -1,0 +1,66 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 1500px; 
+  }
+  
+  footer {
+    margin-top: auto; 
+  }
+  footer {
+    margin-top: auto; 
+  }
+  
+  @media only screen and (max-width: 767px) {
+    /* Adjust the styles for smaller screens */
+    footer {
+      margin-top: 60px;
+      text-align: center;
+    }
+
+    .team{
+      transform: translateX(-50%);
+    }
+  
+    .lg:flex {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .lg:items-start {
+      align-items: center;
+    }
+  
+    .lg:grid-cols-5 {
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+  
+  footer ul{
+    transform: translateX(5%) !important;
+  }
+   
+
+  
+    footer input{
+      display: none;
+    }
+  
+   
+  
+    footer button{
+      transform: translateX(-5%);
+  
+    }
+    
+    footer svg{
+      margin: auto;
+    }
+  
+    footer .copyrigth{
+      margin: auto;
+    }
+  
+  
+    /* Add more styles as needed for responsiveness */
+  }
